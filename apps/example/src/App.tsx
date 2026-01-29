@@ -1,16 +1,19 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { helloWorld } from '@packages/auth'
+import { selectAuth } from '@packages/auth'
 
 function App() {
   const [count, setCount] = useState(0)
+  const auth = useSelector(selectAuth)
+
+  console.log(auth)
 
   return (
     <>
       <div>
-        {helloWorld}
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
