@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import './App.css'
 import { selectAuth } from '@packages/auth'
 
 function App() {
