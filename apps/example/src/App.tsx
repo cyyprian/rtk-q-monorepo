@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
 import './App.css'
 import { selectAuth } from '@packages/auth'
+import { useUserQuery } from './store/sharedAuth'
 
 function App() {
   const auth = useSelector(selectAuth)
-
-  console.log(auth)
+  const { data: user } = useUserQuery()
+  console.log('user', user)
 
   return (
     <>
