@@ -10,8 +10,7 @@ import {
     invalidateAuth
 } from './authSlice';
 
-export const baseQueryWithAuth =
-(
+export const baseQueryWithAuth = (
     baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>
 ): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> =>
     async (args, api, extraOptions) => {
