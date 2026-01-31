@@ -5,9 +5,18 @@ import type {
     fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 
-export interface AuthUser {
+export interface UserResponse {
     name: string | null;
     email: string | null;
+}
+
+export interface LoginResponse {
+    accessToken: string;
+}
+
+export interface LoginRequest {
+    username: string;
+    password: string;
 }
 
 export const registerAuthEndpoints = <
@@ -17,17 +26,24 @@ export const registerAuthEndpoints = <
     Enhancers extends keyof ApiModules<any, any, any, any>,
 >(
     api: Api<
-      ReturnType<typeof fetchBaseQuery>,
-      Definitions,
-      ReducerPath,
-      TagTypes,
-      Enhancers
+        ReturnType<typeof fetchBaseQuery>,
+        Definitions,
+        ReducerPath,
+        TagTypes,
+        Enhancers
     >,
 ) => {
     return api.injectEndpoints({
         endpoints: (builder) => ({
-            user: builder.query<AuthUser, void>({
-                query: () => "/auth/me",
+            user: builder.query<UserResponse, void>({
+                query: () => '/auth/me',
+            }),
+            login: builder.mutation<LoginResponse, LoginRequest>({
+                query: (credentials) => ({
+                    url: '/auth/login',
+                    method: 'POST',
+                    body: credentials
+                })
             }),
         }),
     });

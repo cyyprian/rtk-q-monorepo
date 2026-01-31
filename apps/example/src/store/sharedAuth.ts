@@ -3,4 +3,4 @@ import api from "./api";
 
 const authApi = registerAuthEndpoints(api);
 
-export const { useUserQuery } = authApi;
+export const { useUserQuery, useLoginMutation } = authApi;
