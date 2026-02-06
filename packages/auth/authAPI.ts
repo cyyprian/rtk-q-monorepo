@@ -19,7 +19,10 @@ export interface LoginRequest {
     password: string;
 }
 
-export const registerAuthEndpoints = <
+// let authAPI: ReturnType<AnyApi['injectEndpoints']> | null = null;
+let authAPI = null;
+
+export const initializeAuth = <
     Definitions extends EndpointDefinitions,
     ReducerPath extends string,
     TagTypes extends string,
@@ -31,9 +34,13 @@ export const registerAuthEndpoints = <
         ReducerPath,
         TagTypes,
         Enhancers
-    >,
+    >
 ) => {
-    return api.injectEndpoints({
+    if (authAPI) {
+        throw new Error('Auth API already initialized');
+    }
+
+    authAPI = api.injectEndpoints({
         endpoints: (builder) => ({
             user: builder.query<UserResponse, void>({
                 query: () => '/auth/me',
@@ -47,4 +54,17 @@ export const registerAuthEndpoints = <
             }),
         }),
     });
-};
+
+    return authAPI;
+}
+
+export const getAuthAPI = () => {
+    if (!authAPI) {
+        throw new Error('Auth API not initialized. Call initializeAuth first.');
+    }
+
+    return authAPI;
+}
+
+export const getUseUserQuery = () => getAuthAPI().useUserQuery;
+export const getUseLoginMutation = () => getAuthAPI().useLoginMutation;

@@ -12,10 +12,8 @@ const initialState = {
     isInvalid: false
 } as AuthState
 
-const sliceName = 'auth';
-
-const slice = createSlice({
-    name: sliceName,
+const authSlice = createSlice({
+    name: 'auth',
     initialState,
     reducers: {
         setAccessToken: (state, action: { payload: string }) => {
@@ -32,8 +30,8 @@ const slice = createSlice({
     }
 })
 
-export const { setAccessToken, invalidateAuth } = slice.actions;
-export { slice };
+export const { setAccessToken, invalidateAuth } = authSlice.actions;
+export { authSlice };
 
 // This interface defines the shape of the root state specifically for
 // the part of the Redux store that contains authentication state.

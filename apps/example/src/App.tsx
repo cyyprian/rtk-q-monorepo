@@ -1,19 +1,24 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
 import './App.css'
-import { selectAuth } from '@packages/auth'
-import { useLoginMutation, useUserQuery } from './store/sharedAuth'
-import { useAppDispatch } from './store'
+import { 
+    selectAuth,
+    getUseUserQuery,
+    getUseLoginMutation
+} from '@packages/auth'
 import { setAccessToken } from '@packages/auth'
 
 function App() {
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const auth = useSelector(selectAuth)
-    const { refetch: refetchUser } = useUserQuery()
 
-    const [login, {isSuccess: loginIsSuccess, data: loginData}] = useLoginMutation()
+    const { refetch: refetchUser } = getUseUserQuery()()
+    const [login, {
+        isSuccess: loginIsSuccess,
+        data: loginData
+    }] = getUseLoginMutation()()
 
     useEffect(() => {
         if(loginIsSuccess) {
