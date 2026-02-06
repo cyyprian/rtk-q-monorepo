@@ -1,12 +1,8 @@
-import { registerAuthEndpoints } from "@packages/auth";
+import { registerAuthEndpoints, initializeAuthPackage } from "@packages/auth";
 import api from "./api";
 
-console.log('api', api);
-
 const authApi = registerAuthEndpoints(api);
+initializeAuthPackage(authApi);
 
-console.log('authApi', authApi);
+export const { useUserQuery, useLoginMutation, useTestQuery } = authApi;
 
-console.log('is \'authApi\' instance of \'api\'', authApi === api);
-
-export const { useUserQuery, useLoginMutation } = authApi;
