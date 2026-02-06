@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getApi } from './apiRegistry';
 
 export interface AuthState {
     accessToken: string | null
@@ -28,7 +29,15 @@ const slice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        // TODO: update the state by action authApi.endpoints.login.matchFulfilled
+        builder.addMatcher(
+            (action): action is { payload: { accessToken: string } } =>
+                getApi().endpoints.login.matchFulfilled(action),
+            (state, action) => {
+                state.accessToken = action.payload.accessToken;
+                state.isAuthenticated = true;
+                state.isInvalid = false;
+            }
+        )
     }
 })
 
