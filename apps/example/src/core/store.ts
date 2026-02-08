@@ -1,15 +1,21 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
-import api from './api';
-import { authSlice } from './sharedAuth';
+import { createAppApi } from './api';
+import { type ApiType } from './coreTypes';
+import { initializeAuth } from './sharedAuth';
 
 let store: ReturnType<typeof configureStore> | null = null;
+let api: ApiType | null = null;
 
 export function initializeStore() {
     if(store) {
         throw new Error('Store has already been initialized');
     }
+
+    api = createAppApi();
+
+    const { authSlice } = initializeAuth(api);
 
     const rootReducer = combineSlices(
         { [api.reducerPath]: api.reducer },
@@ -19,14 +25,14 @@ export function initializeStore() {
     store = configureStore({
         reducer: rootReducer,
         middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware().concat(api.middleware),
+            getDefaultMiddleware().concat(api!.middleware),
         devTools: true,
     });
 
     return store;
 }
 
-export function getStore(): ReturnType<typeof initializeStore> {
+export function getStore(): AppStore {
     if(!store) {
         throw new Error('Store was not initialized');
     }

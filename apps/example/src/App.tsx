@@ -1,13 +1,11 @@
 import { useSelector } from 'react-redux';
 
 import './App.css';
-import {
-    selectAuth,
-    useUserQuery,
-    useLoginMutation,
-} from './core/sharedAuth';
+import { selectAuth, getAuthApiHooks } from './core/sharedAuth';
 
 function App() {
+    const { useUserQuery, useLoginMutation } = getAuthApiHooks();
+
     const auth = useSelector(selectAuth);
 
     const { refetch: refetchUser } = useUserQuery();

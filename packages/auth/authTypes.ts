@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { registerAuthEndpoints } from './authApi';
+import { registerAuthEndpoints } from './authRegistry';
 
 // Function used to create a type erased version of API
 const createUntypedApi = (options: {
