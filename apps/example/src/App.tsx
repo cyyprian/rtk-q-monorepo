@@ -1,14 +1,17 @@
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 
-import './App.css'
-import { selectAuth } from '@packages/auth'
-import { useLoginMutation, useUserQuery } from './store/sharedAuth'
+import './App.css';
+import {
+    selectAuth,
+    useUserQuery,
+    useLoginMutation,
+} from './core/sharedAuth';
 
 function App() {
-    const auth = useSelector(selectAuth)
-    const { refetch: refetchUser } = useUserQuery()
+    const auth = useSelector(selectAuth);
 
-    const [login] = useLoginMutation()
+    const { refetch: refetchUser } = useUserQuery();
+    const [login] = useLoginMutation();
 
     return (
         <>

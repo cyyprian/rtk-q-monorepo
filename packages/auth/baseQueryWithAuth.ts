@@ -8,7 +8,7 @@ import {
     type AuthRootState,
     selectAccessToken,
     invalidateAuth
-} from './authSlice';
+} from './createAuthSlice';
 
 export const baseQueryWithAuth = (
     baseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>
