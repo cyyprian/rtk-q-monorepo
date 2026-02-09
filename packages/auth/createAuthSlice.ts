@@ -15,6 +15,7 @@ const initialState = {
 } as AuthState
 
 export const invalidateAuth = createAction('auth/invalidateAuth');
+export const updateUserActivity = createAction('auth/updateUserActivity');
 
 export function createAuthSlice(api: UntypedAuthApi) {
     return createSlice({
