@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from "react";
 
-import { updateUserActivity } from './createAuthSlice';
+import { updateUserActivity, useSliceDispatch } from "./createAuthSlice";
 
 export default function updateUpdateUserActivity() {
-    const dispatch = useDispatch();
+  const dispatch = useSliceDispatch();
 
-    useEffect(() => {
-        dispatch(updateUserActivity());
-    }, []);
+  useEffect(() => {
+    dispatch(updateUserActivity());
+  }, []);
 }
